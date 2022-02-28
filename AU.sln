@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AU.Server", "Server\AU.Server.csproj", "{925F4285-D22B-4873-8CF2-2D781FCB284E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AU.Server", "Server\AU.Server.csproj", "{925F4285-D22B-4873-8CF2-2D781FCB284E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AU.Client", "Client\AU.Client.csproj", "{CC478B98-2F56-43EB-8039-1324BC0BF60E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AU.Client", "Client\AU.Client.csproj", "{CC478B98-2F56-43EB-8039-1324BC0BF60E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AU.Shared", "Shared\AU.Shared.csproj", "{2DCF3F72-C8AF-4CC4-9DC2-3EDCD4A5E516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AU.Shared", "Shared\AU.Shared.csproj", "{2DCF3F72-C8AF-4CC4-9DC2-3EDCD4A5E516}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
