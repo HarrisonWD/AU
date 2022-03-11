@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AU.Shared
 {
-    public class User
+    public class UserViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

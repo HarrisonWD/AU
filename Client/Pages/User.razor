@@ -1,12 +1,20 @@
 ﻿@page "/user"
 @inject IUserService UserService
+@using AU.Shared
 
 <h3>User</h3>
 
+<ul>
+    @foreach (var user in users)
+    {
+        <li>@user.FirstName @user.LastName (@user.Email)</li>
+    }
+</ul>
+
 @code {
-    List<User> users = new List<User>();
+    List<UserViewModel> users = new List<UserViewModel>();
 
     protected override async Task OnInitializedAsync(){
-     
+        users = await UserService.GetUsers();
     }
 }

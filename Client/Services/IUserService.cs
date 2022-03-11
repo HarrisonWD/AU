@@ -5,6 +5,6 @@ namespace AU.Client.Services
 {
     public interface IUserService
     {
-        Task<List<User>> GetUsers();
+        Task<List<UserViewModel>> GetUsers();
     }
 }

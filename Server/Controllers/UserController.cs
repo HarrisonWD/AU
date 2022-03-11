@@ -10,10 +10,10 @@ namespace AU.Server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        List<User> users = new List<User>{
-            new User{ FirstName = "Peter", LastName = "Parker", Email = "spiderman@hotmail.co.uk" },
-            new User{ FirstName = "Clark", LastName = "Kent", Email = "superman@hotmail.co.uk" },
-            new User{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
+        List<UserViewModel> users = new List<UserViewModel>{
+            new UserViewModel{ FirstName = "Peter", LastName = "Parker", Email = "spiderman@hotmail.co.uk" },
+            new UserViewModel{ FirstName = "Clark", LastName = "Kent", Email = "superman@hotmail.co.uk" },
+            new UserViewModel{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
         };
 
         public async Task<IActionResult> GetUsers()

@@ -11,9 +11,9 @@ namespace AU.Client.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<List<User>> GetUsers()
+        public async Task<List<UserViewModel>> GetUsers()
         {
-            return await _httpClient.GetFromJsonAsync<List<User>>("api/user");
+            return await _httpClient.GetFromJsonAsync<List<UserViewModel>>("api/user");
         }
     }
 }
