@@ -3,22 +3,38 @@ using Microsoft.AspNetCore.Mvc;
 using AU.Shared;
 using System;
 using System.Collections.Generic;
+using AU.Server.Models;
 
 namespace AU.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        List<UserViewModel> users = new List<UserViewModel>{
-            new UserViewModel{ FirstName = "Peter", LastName = "Parker", Email = "spiderman@hotmail.co.uk" },
-            new UserViewModel{ FirstName = "Clark", LastName = "Kent", Email = "superman@hotmail.co.uk" },
-            new UserViewModel{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
-        };
+        // List<UserViewModel> users = new List<UserViewModel>{
+        //     new UserViewModel{ FirstName = "Peter", LastName = "Parker", Email = "spiderman@hotmail.co.uk" },
+        //     new UserViewModel{ FirstName = "Clark", LastName = "Kent", Email = "superman@hotmail.co.uk" },
+        //     new UserViewModel{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
+        // };
 
-        public async Task<IActionResult> GetUsers()
-        {
-            return Ok(users);
-        }
+    private readonly ILogger<UserController> _logger;
+
+    private readonly AUContext _context;
+
+    public UserController(ILogger<UserController> logger, AUContext context)
+    {
+        _logger = logger;
+        _context = context;
+    }
+
+    [HttpGet]
+    public List<User> Get()
+    {
+      return _context.Users.ToList();
+    }
+        // public async Task<IActionResult> GetUsers()
+        // {
+        //     return Ok(users);
+        // }
     }
 }

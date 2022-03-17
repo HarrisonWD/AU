@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.ResponseCompression;
 
+using AU.Server.Models;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddEntityFrameworkSqlite().AddDbContext<AUContext>();
 
 var app = builder.Build();
 

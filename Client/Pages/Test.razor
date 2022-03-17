@@ -6,18 +6,5 @@
 
 <p>This is a test page just to confirm tings</p>
 
-<ul>
-    @foreach (var user in _users)
-    {
-        <li>@user.FirstName @user.LastName (@user.Email)</li>
-    }
-</ul>
 
-
-@code {
-    private List<UserViewModel> _users = new List<UserViewModel>()
-    {
-        new UserViewModel{ Id = 1, FirstName = "User", LastName = "Name", Email = "some@somewhere.com" },
-        new UserViewModel{ Id = 2, FirstName = "User 2", LastName = "Name 2", Email = "some@somewhere.com2" }
-    };
-}
+y
