@@ -16,6 +16,7 @@
 
     private async Task GetProfile()
     {
+        _profileViewModel.Message = "Get User function ran";
         User user = await Http.GetFromJsonAsync<User>("user/getprofile/1");
         _profileViewModel = user;
     }
