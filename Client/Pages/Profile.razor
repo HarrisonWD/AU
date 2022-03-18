@@ -1,22 +1,22 @@
 ﻿@page "/profile"
 @using AU.ViewModels
 @using AU.Shared.Models
-@inject HttpClient HttpClient
+@inject HttpClient Http
 
 <h3>User</h3>
 
+@_profileViewModel.Message
 @_profileViewModel.FirstName
 
 <button class="btn btn-primary" @onclick="GetProfile">Get Profile</button>
 
 @code {
-
-
+    
     private ProfileViewModel _profileViewModel = new ProfileViewModel();
 
     private async Task GetProfile()
     {
-        User user = await HttpClient.GetFromJsonAsync<User>("user/getprofile/1");
+        User user = await Http.GetFromJsonAsync<User>("user/getprofile/1");
         _profileViewModel = user;
     }
 

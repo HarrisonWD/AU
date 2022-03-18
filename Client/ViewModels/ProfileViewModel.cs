@@ -4,10 +4,11 @@ namespace AU.ViewModels
 {
     public class ProfileViewModel
     {
-        public long UserId { get; set; }
+        public long Id { get; set; }
         public string FirstName { get; set;}
         public string LastName { get; set; }
         public string Email { get; set; }
+        public string Message { get; set; }
 
         public static implicit operator ProfileViewModel(User user)
         {
@@ -16,7 +17,7 @@ namespace AU.ViewModels
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                UserId = user.Id
+                Id = user.Id
             };
         }
 

@@ -32,7 +32,7 @@ namespace AU.Server.Models
             {
                 entity.ToTable("user");
 
-                entity.HasIndex(e => e.Id, "IX_user_Id")
+                entity.HasIndex(e => e.Id, "Id")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();

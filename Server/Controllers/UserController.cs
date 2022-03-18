@@ -4,11 +4,12 @@ using AU.Shared;
 using System;
 using System.Collections.Generic;
 using AU.Server.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AU.Server.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         // List<UserViewModel> users = new List<UserViewModel>{
@@ -17,24 +18,27 @@ namespace AU.Server.Controllers
         //     new UserViewModel{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
         // };
 
-    private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UserController> _logger;
 
-    private readonly AUContext _context;
+        private readonly AUContext _context;
 
-    public UserController(ILogger<UserController> logger, AUContext context)
-    {
-        _logger = logger;
-        _context = context;
-    }
+        public UserController(ILogger<UserController> logger, AUContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
 
-    [HttpGet]
-    public List<User> Get()
-    {
-      return _context.Users.ToList();
-    }
-        // public async Task<IActionResult> GetUsers()
-        // {
-        //     return Ok(users);
-        // }
+        [HttpGet]
+        public List<User> Get()
+        {
+          return _context.Users.ToList();
+        }
+
+        [HttpGet("getprofile/{userId}")]
+        public async Task<User> GetProfile(int userId)
+        {
+            return await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+        }
+        
     }
 }
