@@ -9,6 +9,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddSingleton<ProfileViewModel>();
+builder.Services.AddSingleton<SettingsViewModel>();
 
 var host = builder.Build();
 

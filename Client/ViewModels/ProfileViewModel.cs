@@ -32,7 +32,6 @@ namespace AU.ViewModels
 
         public async Task GetProfile()
         {
-
             User user = await _httpClient.GetFromJsonAsync<User>("user/getprofile/1");
             LoadCurrentObject(user);
             this.Message = "Obtained details";
