@@ -1,24 +1,22 @@
 ﻿@page "/profile"
 @using AU.ViewModels
 @using AU.Shared.Models
-@inject HttpClient Http
+@inject ProfileViewModel _profileViewModel
 
 <h3>User</h3>
 
-@_profileViewModel.Message
-@_profileViewModel.FirstName
+<div class="col-12">
+    <input type="text" @bind-value="_profileViewModel.FirstName" class="form-control" placeholder="First name">
+    <br/>
+    <input type="text" @bind-value="_profileViewModel.LastName" class="form-control" placeholder="Last name">
+    <br/>
+    <input type="text" @bind-value="_profileViewModel.Email" class="form-control" placeholder="Email address">
+    <br/>
+    <button class="btn btn-primary" @onclick="_profileViewModel.UpdateProfile">Update Profile</button>
+    <span>&nbsp;&nbsp;</span>@_profileViewModel.Message
+</div>
 
-<button class="btn btn-primary" @onclick="GetProfile">Get Profile</button>
-
-@code {
-    
-    private ProfileViewModel _profileViewModel = new ProfileViewModel();
-
-    private async Task GetProfile()
-    {
-        _profileViewModel.Message = "Get User function ran";
-        User user = await Http.GetFromJsonAsync<User>("user/getprofile/1");
-        _profileViewModel = user;
-    }
-
+@code
+{
+    protected override async Task OnInitializedAsync() => await _profileViewModel.GetProfile();
 }

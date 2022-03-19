@@ -24,8 +24,8 @@ namespace AU.Server.Controllers
 
         public UserController(ILogger<UserController> logger, AUContext context)
         {
-            _logger = logger;
-            _context = context;
+            this._logger = logger;
+            this._context = context;
         }
 
         [HttpGet]
@@ -33,6 +33,21 @@ namespace AU.Server.Controllers
         {
           return _context.Users.ToList();
         }
+
+        [HttpPut("updateprofile/{userId}")]
+        public async Task<User> UpdateProfile(int userId, [FromBody] User user)
+        {
+            User userToUpdate = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Email = user.Email;
+
+            await _context.SaveChangesAsync();
+
+            return await Task.FromResult(user);
+        }
+
 
         [HttpGet("getprofile/{userId}")]
         public async Task<User> GetProfile(int userId)
