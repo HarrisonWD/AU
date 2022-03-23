@@ -1,23 +1,41 @@
 ﻿@inherits LayoutComponentBase
- <div class="page">      <div class="sidebar"> 
+@inject NavigationManager _navigationManager
+
+<div class="page">      
+    <div class="sidebar"> 
         <NavMenu /> 
-    </div> 
-
-    <main> 
-        <div class="top-row px-4"> 
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a> 
-        </div> 
-
-        <article class="content px-4"> 
-            @Body 
-        </article> 
+    </div>
+    
+    <main>
+        <div class="container">
+            
+                    <div class="top-row px-4">
+                        <h4>
+                            <b>Hello, User Name</b>
+                        </h4> &nbsp;
+                        <button class="btn btn-danger" @onclick="LogoutUser">Logout</button>
+                    </div>
+                
+                    <div class="top-row px-4">
+                        <button class="btn btn-primary" @onclick="LoginUser">Login</button>
+                    </div>
+               
+        </div>
+        <article class="content px-4">
+            @Body
+        </article>
     </main> 
 </div>
 
-@* <div class="page"> *@
-@*     <main> *@
-@*         <article class="content"> *@
-@*             @Body *@
-@*         </article> *@
-@*     </main> *@
-@* </div> *@
+@code
+{
+    private void LogoutUser()
+    {
+        _navigationManager.NavigateTo("/", true);
+    }
+
+    private void LoginUser()
+    {
+        _navigationManager.NavigateTo("/login", true);
+    }
+}

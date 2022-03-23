@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using AU.Shared;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using AU.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication;
 
 namespace AU.Server.Controllers
 {
@@ -12,19 +14,14 @@ namespace AU.Server.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        // List<UserViewModel> users = new List<UserViewModel>{
-        //     new UserViewModel{ FirstName = "Peter", LastName = "Parker", Email = "spiderman@hotmail.co.uk" },
-        //     new UserViewModel{ FirstName = "Clark", LastName = "Kent", Email = "superman@hotmail.co.uk" },
-        //     new UserViewModel{ FirstName = "Bruce", LastName = "Banner", Email = "b4tman@hotmail.co.uk" }
-        // };
 
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UserController> logger;
 
         private readonly AUContext _context;
 
         public UserController(ILogger<UserController> logger, AUContext context)
         {
-            this._logger = logger;
+            this.logger = logger;
             this._context = context;
         }
 
@@ -32,6 +29,46 @@ namespace AU.Server.Controllers
         public List<User> Get()
         {
           return _context.Users.ToList();
+        }
+
+        [HttpGet("getprofile/{userId}")]
+        public async Task<User> GetProfile(int userId)
+        {
+            return await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+        }
+
+        [HttpGet("getcurrentuser")]
+        public async Task<ActionResult<User>> GetCurrentUser(User user)
+        {
+            User currentUser = new User();
+            return await Task.FromResult(currentUser);
+        }
+
+        [HttpGet("loginuser")]
+        public async Task<ActionResult<User>> LoginUser(User user)
+        {
+            User loggedInUser = await _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefaultAsync();
+
+            if (loggedInUser != null)
+            {
+                //create claims
+                var claim = new Claim(ClaimTypes.Name, loggedInUser.Email);
+                //create claimsIdentity
+                var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
+                //cerate claims principal
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                //Sign in the user
+                await HttpContext.SignInAsync(claimsPrincipal);
+            }
+
+            return await Task.FromResult(loggedInUser);
+        }
+
+        [HttpGet("logoutuser")]
+        public async Task<ActionResult<String>> LogOutUser()
+        {
+            await HttpContext.SignOutAsync();
+            return "Success";
         }
 
         [HttpPut("updateprofile/{userId}")]
@@ -46,16 +83,8 @@ namespace AU.Server.Controllers
             await _context.SaveChangesAsync();
 
             return await Task.FromResult(user);
-        }
-
-
-        [HttpGet("getprofile/{userId}")]
-        public async Task<User> GetProfile(int userId)
-        {
-            return await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
-        }
-
-
+        }        
+        
         [HttpGet("updatetheme")]
         public async Task<User> UpdateTheme(string userId, string value)
         {

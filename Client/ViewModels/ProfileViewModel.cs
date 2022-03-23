@@ -45,7 +45,6 @@ namespace AU.ViewModels
             //add more fields
         }
 
-
         public static implicit operator User(ProfileViewModel profileViewModel)
         {
             return new User
@@ -56,7 +55,7 @@ namespace AU.ViewModels
                 Id = profileViewModel.Id
             };
         }
-
+        
         public static implicit operator ProfileViewModel(User user)
         {
             return new ProfileViewModel
@@ -67,6 +66,7 @@ namespace AU.ViewModels
                 Id = user.Id,
             };
         }
+
 
     }
 }

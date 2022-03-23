@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.ResponseCompression;
-
 using AU.Server.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddEntityFrameworkSqlite().AddDbContext<AUContext>();
+builder.Services.AddAuthentication().AddCookie();
 
 var app = builder.Build();
 
@@ -26,15 +29,11 @@ else
 }
 
 app.UseHttpsRedirection();
-
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
-
 app.UseRouting();
-
-
+app.UseAuthentication();
 app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
-
 app.Run();
