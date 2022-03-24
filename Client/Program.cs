@@ -12,6 +12,7 @@ builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(build
 builder.Services.AddSingleton<ProfileViewModel>();
 builder.Services.AddSingleton<SettingsViewModel>();
 builder.Services.AddSingleton<LoginViewModel>();
+builder.Services.AddSingleton<RegisterViewModel>(); 
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthentificationStateProvider>();

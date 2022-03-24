@@ -51,9 +51,24 @@ namespace AU.Server.Controllers
             return await Task.FromResult(currentUser);
         }
 
+        [HttpPost("registeruser")]
+        public async Task<ActionResult> RegisterUser (User user)
+        {
+            var emailAddressEsists = _context.Users.Where(u => u.Email == user.Email).FirstOrDefault();
+            if (emailAddressEsists == null)
+            {
+                user.Password = Utility.Encrypt(user.Password);
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+            }
+
+            return Ok();
+        }
+
         [HttpPost("loginuser")]
         public async Task<ActionResult<User>> LoginUser(User user)
         {
+            user.Password = Utility.Encrypt(user.Password);
             User loggedInUser = await _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefaultAsync();
 
             if (loggedInUser != null)
@@ -67,7 +82,6 @@ namespace AU.Server.Controllers
                 //Sign in the user
                 await HttpContext.SignInAsync(claimsPrincipal);
             }
-
             return await Task.FromResult(loggedInUser);
         }
 
