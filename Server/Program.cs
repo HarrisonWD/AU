@@ -12,7 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddEntityFrameworkSqlite().AddDbContext<AUContext>();
-builder.Services.AddAuthentication().AddCookie();
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    }
+).AddCookie();
 
 var app = builder.Build();
 

@@ -1,5 +1,7 @@
 ﻿@page "/profile"
+@using System.Security.Claims
 @inject ProfileViewModel _profileViewModel
+@inject NavigationManager _navigationManager
 
 <h3>User</h3>
 
@@ -16,5 +18,26 @@
 
 @code
 {
-    protected override async Task OnInitializedAsync() => await _profileViewModel.GetProfile();
+    [CascadingParameter]
+
+    public Task<AuthenticationState> authenticationState { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await authenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            var claim = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
+            _profileViewModel.Id = Convert.ToInt64(claim?.Value);
+            await _profileViewModel.GetProfile();
+        }
+        else
+        {
+            _navigationManager.NavigateTo("/login");
+        }
+
+        
+    } 
 }

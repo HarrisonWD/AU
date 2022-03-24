@@ -1,7 +1,5 @@
 ﻿@page "/login"
-@using AU.ViewModels
-@using AU.Shared.Models
-@using System.Diagnostics
+
 @inject LoginViewModel _loginViewModel
 @inject NavigationManager _navigationManager
 
@@ -9,21 +7,25 @@
 <h2>Login</h2>
 <hr/>
 
-<div class="col-6">
-    <input type="text" @bind="_loginViewModel.Email" class="form-control" placeholder="Email address"/>
-</div>
-<br/>
-<div class="col-6">
-    <input type="password" @bind="_loginViewModel.Password" class="form-control" placeholder="Password"/>
-</div>
-<br/>
-<div class="col-6">
-    <button class="btn btn-primary" @onclick="LoginUser">Login</button>
-</div>
+<EditForm Model="loginViewModel" OnSubmit="LoginUser">
+    <div class="col-6">
+        <input type="text" @bind="_loginViewModel.Email" class="form-control" placeholder="Email address"/>
+    </div>
+    <br/>
+    <div class="col-6">
+        <input type="password" @bind="_loginViewModel.Password" class="form-control" placeholder="Password"/>
+    </div>
+    <br/>
+    <div class="col-6">
+        <button class="btn btn-primary" @onclick="LoginUser">Login</button>
+    </div>
+</EditForm>
 
 
 @code
 {
+    private LoginViewModel loginViewModel = new LoginViewModel();
+
     public async Task LoginUser()
     {
         await _loginViewModel.LoginUser();

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using AU.Server.Models;
+using AU.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 
@@ -38,13 +39,19 @@ namespace AU.Server.Controllers
         }
 
         [HttpGet("getcurrentuser")]
-        public async Task<ActionResult<User>> GetCurrentUser(User user)
+        public async Task<ActionResult<User>> GetCurrentUser()
         {
             User currentUser = new User();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                currentUser.Email = User.FindFirstValue(ClaimTypes.Name);
+            }
+
             return await Task.FromResult(currentUser);
         }
 
-        [HttpGet("loginuser")]
+        [HttpPost("loginuser")]
         public async Task<ActionResult<User>> LoginUser(User user)
         {
             User loggedInUser = await _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefaultAsync();

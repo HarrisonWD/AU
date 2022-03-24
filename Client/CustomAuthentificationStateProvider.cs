@@ -10,9 +10,28 @@ namespace AU.Client
 {
     public class CustomAuthentificationStateProvider : AuthenticationStateProvider
     {
-        public override Task<AuthenticationState> GetAuthenticationStateAsync()
+        private readonly HttpClient _httpClient;
+
+        public CustomAuthentificationStateProvider(HttpClient httpClient)
         {
-            throw new System.NotImplementedException();
+            _httpClient = httpClient;
+        }
+
+        public override async Task<AuthenticationState> GetAuthenticationStateAsync()
+        { 
+            User currentUser = await _httpClient.GetFromJsonAsync<User>("user/getcurrentuser");
+
+            if (currentUser != null && currentUser.Email != null)
+            {
+                var claimEmail = new Claim(ClaimTypes.Name, currentUser.Email);
+                var claimNameIdentifier = new Claim(ClaimTypes.NameIdentifier, Convert.ToString(currentUser.Id));
+                var claimsIdentity = new ClaimsIdentity(new[] { claimEmail, claimNameIdentifier }, "serverAuth");
+                var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                return new AuthenticationState(claimsPrincipal);
+            }
+            else 
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
         }
     }
 }

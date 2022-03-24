@@ -16,7 +16,7 @@ namespace AU.Server.Models
         {
         }
 
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +32,10 @@ namespace AU.Server.Models
             {
                 entity.ToTable("user");
 
-                entity.HasIndex(e => e.Id, "Id")
+                entity.HasIndex(e => e.Email, "IX_user_email")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Id, "IX_user_Id")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -48,6 +51,8 @@ namespace AU.Server.Models
                 entity.Property(e => e.LastName).HasColumnName("last_name");
 
                 entity.Property(e => e.Notifications).HasColumnName("notifications");
+
+                entity.Property(e => e.Password).HasColumnName("password");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -26,13 +26,13 @@ namespace AU.ViewModels
         public async Task UpdateProfile()
         {
             User user = this;
-            await _httpClient.PutAsJsonAsync("user/updateprofile/1", user);
+            await _httpClient.PutAsJsonAsync("user/updateprofile/" + this.Id, user);
             this.Message = "Updated profile details";
         }
 
         public async Task GetProfile()
         {
-            User user = await _httpClient.GetFromJsonAsync<User>("user/getprofile/1");
+            User user = await _httpClient.GetFromJsonAsync<User>($"user/getprofile/{this.Id}");
             LoadCurrentObject(user);
             this.Message = "Obtained details";
         }
