@@ -28,5 +28,29 @@
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="wwwroot\Images\Logos\AE Logo White.png" />
+    <None Include="wwwroot\Images\Logos\AE x Nike transparent.png" />
+    <None Include="wwwroot\Images\Logos\AE x Nike.jpg" />
+    <None Include="wwwroot\Images\Logos\Logo transparent no text.png" />
+    <None Include="wwwroot\Images\Logos\Logo with transparent background.png" />
+    <None Include="wwwroot\Images\Products\AE Mascot.png" />
+    <None Include="wwwroot\Images\Products\Black beanie.jpg.png" />
+    <None Include="wwwroot\Images\Products\Logo Hoodie Black.png" />
+    <None Include="wwwroot\Images\Products\Logo Hoodie White.png" />
+    <None Include="wwwroot\Images\Sponsors\Asus ROG.png" />
+    <None Include="wwwroot\Images\Sponsors\Call of Duty Logo.png" />
+    <None Include="wwwroot\Images\Sponsors\CoD League.jpg" />
+    <None Include="wwwroot\Images\Sponsors\Corsair.png" />
+    <None Include="wwwroot\Images\Sponsors\Dominos logo.png" />
+    <None Include="wwwroot\Images\Sponsors\Dominos.png" />
+    <None Include="wwwroot\Images\Sponsors\Fortnite logo.png" />
+    <None Include="wwwroot\Images\Sponsors\LG logo.png" />
+    <None Include="wwwroot\Images\Sponsors\Logitech.png" />
+    <None Include="wwwroot\Images\Sponsors\Red Bull.png" />
+    <None Include="wwwroot\Images\Sponsors\Secret Lab.png" />
+    <None Include="wwwroot\Images\Sponsors\Twitch.png" />
+  </ItemGroup>
 
 </Project>

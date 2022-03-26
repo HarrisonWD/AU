@@ -3,6 +3,7 @@
 @inject ProfileViewModel _profileViewModel
 @inject NavigationManager _navigationManager
 
+
 <h3>User</h3>
 
 <div class="col-12">
@@ -15,6 +16,11 @@
     <button class="btn btn-primary" @onclick="_profileViewModel.UpdateProfile">Update Profile</button>
     <span>&nbsp;&nbsp;</span>@_profileViewModel.Message
 </div>
+<AuthorizeView>
+    @context.User.Identity.Name<br/>
+    @context.User.Identity <br/>
+    @context.User.Identities <br/>
+</AuthorizeView>
 
 @code
 {

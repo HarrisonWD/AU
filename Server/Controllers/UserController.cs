@@ -45,9 +45,9 @@ namespace AU.Server.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                currentUser.Email = User.FindFirstValue(ClaimTypes.Name);
+                var email = User.FindFirstValue(ClaimTypes.Name);
+                currentUser = await _context.Users.Where(u => u.Email == email).FirstOrDefaultAsync();
             }
-
             return await Task.FromResult(currentUser);
         }
 
@@ -75,9 +75,8 @@ namespace AU.Server.Controllers
             {
                 //create claims
                 var claim = new Claim(ClaimTypes.Name, loggedInUser.Email);
-                //create claimsIdentity
                 var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
-                //cerate claims principal
+                //create claims principal
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 //Sign in the user
                 await HttpContext.SignInAsync(claimsPrincipal);

@@ -16,6 +16,8 @@ namespace AU.Server.Models
         {
         }
 
+        public virtual DbSet<Auth> Auths { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,6 +30,43 @@ namespace AU.Server.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Auth>(entity =>
+            {
+                entity.ToTable(" auth");
+
+                entity.HasIndex(e => e.Id, "IX_ auth_id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UserId, "IX_ auth_user_id")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Admin).HasColumnName("admin");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("product");
+
+                entity.HasIndex(e => e.Id, "IX_product_id")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.Image).HasColumnName("image");
+
+                entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Price)
+                    .HasColumnType("NUMERIC")
+                    .HasColumnName("price");
+            });
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("user");

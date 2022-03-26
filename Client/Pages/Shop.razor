@@ -1,0 +1,35 @@
+﻿@page "/shop"
+@using System.Net.Http.Headers
+@using AU.Shared.Models
+@inject HttpClient _httpClient
+
+<h3>Main Shop</h3>
+
+<div class="container">
+    <div class="row justify-content-center align-content-center">
+        @foreach (var product in Products)
+        {
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="" class="card-img-top" alt="@product.ImageUrl">
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text">@product.Description</p>
+                        <h6>£@product.Price</h6>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code
+{
+    private static List<Product> Products { get; set; } = new List<Product>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = await _httpClient.GetFromJsonAsync<List<Product>>("Product");
+    }
+}
