@@ -36,7 +36,7 @@
         if (user.Identity.IsAuthenticated)
         {
             var claim = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier);
-            _profileViewModel.Id = Convert.ToInt64(claim?.Value);
+            _profileViewModel.Id = Convert.ToInt32(claim?.Value);
             await _profileViewModel.GetProfile();
         }
         else

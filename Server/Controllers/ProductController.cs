@@ -1,8 +1,5 @@
-﻿using AU.Server.Models;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
-using AU.Shared.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace AU.Server.Controllers
 {
@@ -11,23 +8,31 @@ namespace AU.Server.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> logger;
+        
+        private readonly IProductService _productService;
 
-        private readonly AUContext _context;
-
-        public ProductController(ILogger<ProductController> logger, AUContext context)
+        public ProductController(ILogger<ProductController> logger, IProductService productService)
         {
             this.logger = logger;
-            this._context = context;
+            this._productService = productService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Models.Product>>> GetProducts()
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProducts()
         {
-            var products = await _context.Products.ToListAsync();
-            return Ok(products);
+            var result = await _productService.GetProductsAsync();
+            return Ok(result);
         }
 
-        
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetProducts(int productId)
+        {
+            var result = await _productService.GetProductAsync(productId);
+            return Ok(result);
+        }
+
+
+        // Testing locally stored data
         //private static List<Models.Product> Products = new List<Models.Product>
         //{
         //    new Models.Product

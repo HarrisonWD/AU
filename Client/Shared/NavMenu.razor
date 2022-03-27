@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject ICategoryService CategorySevice
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Achievement Unlocked</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -11,7 +13,6 @@
     <nav class="flex-column">
         <AuthorizeView>
             <Authorized>
-                
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> Home
@@ -22,6 +23,14 @@
                         <span class="oi oi-people" aria-hidden="true"></span> Shop
                     </NavLink>
                 </div>
+                @foreach (var category in CategorySevice.Categories)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="@category.Url">
+                           @category.Name
+                        </NavLink>
+                    </div>
+                }
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="profile">
                         <span class="oi oi-people" aria-hidden="true"></span> Profile
@@ -44,6 +53,14 @@
                         <span class="oi oi-people" aria-hidden="true"></span> Shop
                     </NavLink>
                 </div>
+                @foreach (var category in CategorySevice.Categories)
+                {
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="@category.Url">
+                            @category.Name
+                        </NavLink>
+                    </div>
+                }
             </NotAuthorized>
         </AuthorizeView>
     </nav>
@@ -58,4 +75,10 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CategorySevice.GetCategories();
+    }
+
 }

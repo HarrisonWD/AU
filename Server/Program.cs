@@ -1,23 +1,26 @@
-using Microsoft.AspNetCore.ResponseCompression;
-using AU.Server.Models;
-using Microsoft.AspNetCore.Authentication;
+global using AU.Shared;
+global using Microsoft.EntityFrameworkCore;
+global using AU.Server.Services.ProductService;
+global using AU.Server.Services.CategoryService;
+global using AU.Server.Models;
+global using AU.Shared.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Configuration;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddEntityFrameworkSqlite().AddDbContext<AUContext>();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    }
-).AddCookie();
-
+    }).AddCookie();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

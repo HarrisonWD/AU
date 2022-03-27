@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using AU.Shared;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using AU.Server.Models;
-using AU.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 
 namespace AU.Server.Controllers
@@ -18,9 +12,9 @@ namespace AU.Server.Controllers
 
         private readonly ILogger<UserController> logger;
 
-        private readonly AUContext _context;
+        private readonly DataContext _context;
 
-        public UserController(ILogger<UserController> logger, AUContext context)
+        public UserController(ILogger<UserController> logger, DataContext context)
         {
             this.logger = logger;
             this._context = context;

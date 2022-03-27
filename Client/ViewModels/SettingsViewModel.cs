@@ -5,7 +5,7 @@ namespace AU.ViewModels
 {
     public class SettingsViewModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public bool Notifications { get; set; }
         public bool DarkTheme { get; set; }
 
