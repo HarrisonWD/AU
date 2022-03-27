@@ -1,5 +1,7 @@
 ﻿@page "/shop"
+@page "/{categoryUrl}"
 @inject IProductService ProductService
+@implements IDisposable
 
 <h3>Main Shop</h3>
 
@@ -19,7 +21,7 @@ else
                         <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text">@product.Description</p>
-                            <h6>£@product.Price</h6>
+                            <h6>@GetPriceText(product)</h6>
                             <a href="/product/@product.Id" class="btn btn-primary">View More</a>
                         </div>
                     </div>
@@ -31,8 +33,36 @@ else
 
 @code
 {
-    protected override async Task OnInitializedAsync()
+    [Parameter]
+    public string? CategoryUrl { get; set; } = null;
+
+    protected override async Task OnParametersSetAsync()
+
     {
-        await ProductService.GetProducts();
+        await ProductService.GetProducts(CategoryUrl);
+    }
+    protected override void OnInitialized()
+    {
+        ProductService.ProductsChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        ProductService.ProductsChanged -= StateHasChanged;
+    }
+
+    private string GetPriceText(Product product)
+    {
+        var variants = product.Variants;
+        if (variants.Count == 0)
+        {
+            return string.Empty;
+        } 
+        else if (variants.Count == 1)
+        {
+            return $"£{variants[0].Price}";
+        }
+        decimal minPrice = variants.Min(v => v.Price);
+        return $"Starting at £{minPrice}";
     }
 }

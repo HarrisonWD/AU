@@ -31,6 +31,12 @@ namespace AU.Server.Controllers
             return Ok(result);
         }
 
+        [HttpGet("category/{categoryUrl}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductsByCategory(string categoryUrl)
+        {
+            var result = await _productService.GetProductsByCategory(categoryUrl);
+            return Ok(result);
+        }
 
         // Testing locally stored data
         //private static List<Models.Product> Products = new List<Models.Product>
