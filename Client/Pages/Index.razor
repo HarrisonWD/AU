@@ -7,7 +7,7 @@
 
 <div class="container">
     <h1 id="Title">Achievement Unlocked</h1>
-    @if (ProductService.Products == null || ProductService.Products.Count == 0)
+    @if (product == null || product.Count == 0)
     {
         <h2>Welcome to Achievement Unlocked</h2>
     }
@@ -20,7 +20,7 @@
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
-                    @foreach (var product in ProductService.Products)
+                    @foreach (var product in product)
                     {
                         <div class="carousel-item active">
                             <img src="" class="d-block w-100" alt="Images/Products/@product.Image">
@@ -44,9 +44,18 @@
 </div>
 
 @code {
-    protected override async void OnInitialized()
+    private List<Product>? product = null;
+
+    protected override async Task OnInitializedAsync()
     {
-        await ProductService.GetFeaturedProducts();
+        await GetFeaturedProducts();
+    }
+
+    private async Task GetFeaturedProducts()
+    {
+        var result = await ProductService.GetFeaturedProducts();
+        product = result.Data;
+
     }
 
 }

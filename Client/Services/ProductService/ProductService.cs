@@ -21,6 +21,7 @@
             {
                 Message = "No featured products";
             }
+
             return result;
         }
         public async Task GetProducts(string? categoryUrl = null)

@@ -29,8 +29,7 @@ namespace AU.Client
                     identity = new ClaimsIdentity(ParseClaimsFromJwt(authToken), "jwt");
                     _http.DefaultRequestHeaders.Authorization =
                         new AuthenticationHeaderValue("Bearer", authToken.Replace("\"", ""));
-                } catch
-                {
+                } catch {
                     await _localStorageService.RemoveItemAsync("authToken");
                     identity = new ClaimsIdentity();
                 }
