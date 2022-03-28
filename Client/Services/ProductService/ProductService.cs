@@ -12,11 +12,21 @@
         public event Action? ProductsChanged;
 
         public List<Product> Products { get; set; } = new List<Product>();
+        public string Message { get; set; } = "Loading Products...";
 
+        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("product/featured");
+            if (result == null)
+            {
+                Message = "No featured products";
+            }
+            return result;
+        }
         public async Task GetProducts(string? categoryUrl = null)
         {
             var result = categoryUrl == null ? 
-            await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("product") :
+            await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>("product/") :
             await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"product/category/{categoryUrl}");
             if (result != null && result.Data != null)
                 Products = result.Data;
@@ -30,5 +40,20 @@
             return result;
         }
 
+        public async Task SearchProducts(string searchText)
+        {
+            var result = await _http.GetFromJsonAsync<ServiceResponse<List<Product>>>($"product/search/{searchText}");
+            if (result != null && result.Data != null)
+                Products = result.Data;
+            if (Products.Count == 0) Message = "No Products found.";
+            ProductsChanged?.Invoke();
+        }
+
+        public async Task<List<string>> GetProductSearchSuggestions(string searchText)
+        {
+            var result =
+                await _http.GetFromJsonAsync<ServiceResponse<List<string>>>($"product/searchsuggestions/{searchText}");
+            return result.Data;
+        }
     }
 }

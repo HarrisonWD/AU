@@ -124,7 +124,8 @@
                     Name = "Hoodie",
                     Description = "Warm and cosey, available in mutliple colours and sizes.",
                     Image = "hoodie",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Featured = true
                 },
                 new Product
                 {
@@ -132,7 +133,8 @@
                     Name = "Beanie",
                     Description = "Stylish headwear to keep warm as well as represent the team",
                     Image = "beanie",
-                    CategoryId = 2
+                    CategoryId = 2,
+                    Featured = true
                 },
                 new Product
                 {
@@ -140,7 +142,8 @@
                     Name = "Mug",
                     Description = "Customised and ergonimically designed mug for the warmest brews",
                     Image = "",
-                    CategoryId = 4
+                    CategoryId = 4,
+                    Featured = false
                 },
                 new Product
                 {
@@ -148,7 +151,8 @@
                     Name = "T-Shirt",
                     Description = "Stylish 2019 Edition Team T-Shirt",
                     Image = "tshirt",
-                    CategoryId = 3
+                    CategoryId = 3,
+                    Featured = false
                 },
                 new Product
                 {
@@ -156,7 +160,8 @@
                     Name = "Hoodie 2020E",
                     Description = "Styilish 2020 Edition Team Hoodie",
                     Image = "hoodie2020",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Featured = false
                 },
                 new Product
                 {
@@ -164,7 +169,8 @@
                     Name = "Secret Chair",
                     Description = "Secret Labs sponsor chair",
                     Image = "chair",
-                    CategoryId = 5
+                    CategoryId = 5,
+                    Featured = false
                 }
             );
         }

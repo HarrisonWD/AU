@@ -9,7 +9,10 @@
     
     <main>
         <div class="container">
-            <AuthorizeView>
+            <Search/>
+            <UserButton/>
+            <CartCounter/>
+            @*<AuthorizeView>
                 <Authorized>
                     <div class="top-row px-4">
                         <h4>
@@ -23,7 +26,7 @@
                         <button class="btn btn-primary" @onclick="LoginUser">Login</button>
                     </div>
                 </NotAuthorized>
-            </AuthorizeView>
+            </AuthorizeView>*@
         </div>
         <article class="content px-4">
             @Body

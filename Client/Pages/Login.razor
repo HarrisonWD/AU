@@ -1,36 +1,62 @@
 ﻿@page "/login"
-@inject LoginViewModel _loginViewModel
-@inject NavigationManager _navigationManager
+@page "/auth/login"
+@using Microsoft.AspNetCore.WebUtilities
+@inject IAuthService AuthService
+@inject ILocalStorageService LocalStorage
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
+<PageTitle>Login</PageTitle>
 
-<h2>Login</h2>
-<hr/>
-
-<EditForm Model="loginViewModel" OnSubmit="LoginUser">
-    <div class="col-6">
-        <input type="text" @bind="_loginViewModel.Email" class="form-control" placeholder="Email address"/>
+<EditForm Model="user" OnValidSubmit="HandleLogin">
+    <DataAnnotationsValidator/>
+    <div class="mb-3">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="user.Email" class="form-control"/>
+        <ValidationMessage For="@(() => user.Email)"/>
     </div>
-    <br/>
-    <div class="col-6">
-        <input type="password" @bind="_loginViewModel.Password" class="form-control" placeholder="Password"/>
+    <div class="mb-3">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="user.Password" class="form-control" type="password"/>
+        <ValidationMessage For="@(() => user.Password)"/>
     </div>
-    <br/>
-    <div class="col-6">
-        <button class="btn btn-primary" @onclick="LoginUser">Login</button>
-    </div>
-    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-9 col-9">
-        <a style="font-weight: bold;" href="/createaccount">Create an account</a>
-    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
 </EditForm>
+<div class="text-danger">
+    <span>@errorMessage</span>
+</div>
 
+@code {
+    private UserLogin user = new UserLogin();
 
-@code
-{
-    private LoginViewModel loginViewModel = new LoginViewModel();
+    private string errorMessage = string.Empty;
 
-    public async Task LoginUser()
+    private string returnUrl = string.Empty;
+
+    protected override void OnInitialized()
     {
-        await _loginViewModel.LoginUser();
-        _navigationManager.NavigateTo("/", true);
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
+        {
+            returnUrl = url;
+        }
+    }
+
+    private async Task HandleLogin()
+    {
+        var result = await AuthService.Login(user);
+        if (result.Success)
+        {
+            errorMessage = string.Empty;
+
+            await LocalStorage.SetItemAsync("authToken", result.Data);
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo(returnUrl);
+        }
+        else
+        {
+            errorMessage = result.Message;
+        }
+
     }
 }

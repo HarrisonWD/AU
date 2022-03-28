@@ -38,6 +38,27 @@ namespace AU.Server.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search/{searchtext}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> SearchProducts(string searchText)
+        {
+            var result = await _productService.SearchProducts(searchText);
+            return Ok(result);
+        }
+
+        [HttpGet("searchsuggestions/{searchtext}")]
+        public async Task<ActionResult<ServiceResponse<List<Product>>>> GetProductSearchSuggestions(string searchText)
+        {
+            var result = await _productService.GetProductSearchSuggestions(searchText);
+            return Ok(result);
+        }
+
+        [HttpGet("featured")]
+        public async Task<ActionResult<ServiceResponse<Product>>> GetFeatured()
+        {
+            var result = await _productService.GetFeaturedProducts();
+            return Ok(result);
+        }
+
         // Testing locally stored data
         //private static List<Models.Product> Products = new List<Models.Product>
         //{

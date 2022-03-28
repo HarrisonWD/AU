@@ -1,5 +1,6 @@
 ﻿@page "/shop"
 @page "/{categoryUrl}"
+@page "/search/{searchText}"
 @inject IProductService ProductService
 @implements IDisposable
 
@@ -7,7 +8,7 @@
 
 @if (ProductService.Products == null || ProductService.Products.Count == 0)
 {
-    <span>Loading Shop...</span>
+    <span>@ProductService.Message</span>
 }
 else
 {
@@ -36,10 +37,20 @@ else
     [Parameter]
     public string? CategoryUrl { get; set; } = null;
 
-    protected override async Task OnParametersSetAsync()
+    [Parameter]
+    public string? SearchText { get; set; } = null;
 
+    protected override async Task OnParametersSetAsync()
     {
-        await ProductService.GetProducts(CategoryUrl);
+        if (SearchText != null)
+        {
+            await ProductService.SearchProducts(SearchText);
+        }
+        else
+        {
+            await ProductService.GetProducts(CategoryUrl);
+        }
+        
     }
     protected override void OnInitialized()
     {
