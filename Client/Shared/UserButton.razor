@@ -3,41 +3,38 @@
 @inject NavigationManager NavigationManager
 
 @using System.Runtime.CompilerServices
-<div class="dropdown">
-    <button @onclick="ToggleUserMenu"
+    @*<button @onclick="ToggleUserMenu"
             @onfocusout="HideUserMenu"
             class="btn btn-secondary dropdown-toggle user-button">
         <i class="oi oi-person"></i>
-    </button>
-    <div class="dropdown-menu dropdown-menu-dark @UserMenuCssClass">
-        <AuthorizeView>
-            <Authorized>
-                <button class="dropdown-item>" @onclick="Logout">Logout</button>
-                <a href="profile" class="dropdown-item>">Profile</a>
-                <AdminMenu/>
-            </Authorized>
-            <NotAuthorized>
-                <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" class="dropdown-item>">Login</a>
-                <a href="register" class="dropdown-item>">Register</a>
-            </NotAuthorized>
-        </AuthorizeView>
-    </div>
-</div>
+    </button>*@
+<AuthorizeView>
+    <Authorized>
+        <a class="nav-item nav-link" @onclick="Logout">Logout</a>
+        <a href="profile" class="nav-item nav-link">Profile</a>
+        <AdminMenu/>
+    </Authorized>
+    <NotAuthorized>
+        <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" class="nav-item nav-link">Login<img src="img/Sign In Icon.png" style="width: 25px; height: 25px;"></a>
+        <a href="register" class="nav-item nav-link">Register</a>
+    </NotAuthorized>
+</AuthorizeView>
+
 
 @code {
     private bool showUserMenu = false;
-    private string UserMenuCssClass => showUserMenu ? "show-menu" : null;
+    //private string UserMenuCssClass => showUserMenu ? "show-menu" : null;
 
-    private void ToggleUserMenu()
-    {
-        showUserMenu = !showUserMenu;
-    }
+    //private void ToggleUserMenu()
+    //{
+    //    showUserMenu = !showUserMenu;
+    //}
 
-    private async Task HideUserMenu()
-    {
-        await Task.Delay(200);
-        showUserMenu = false;
-    }
+    //private async Task HideUserMenu()
+    //{
+    //    await Task.Delay(200);
+    //    showUserMenu = false;
+    //}
 
     private async Task Logout()
     {

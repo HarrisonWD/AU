@@ -2,36 +2,17 @@
 @inject NavigationManager _navigationManager
 @inject HttpClient _httpClient;
 
-<div class="page">      
-    <div class="sidebar"> 
-        <NavMenu /> 
-    </div>
-    
+<div class="page">
+    <NavMenu/>
     <main>
-        <div class="container">
-            <Search/>
-            <UserButton/>
-            <CartCounter/>
-            @*<AuthorizeView>
-                <Authorized>
-                    <div class="top-row px-4">
-                        <h4>
-                            <b>Hello, @context.User.Identity.Name</b>
-                        </h4> &nbsp;
-                        <button class="btn btn-danger" @onclick="LogoutUser">Logout</button>
-                    </div>
-                </Authorized>
-                <NotAuthorized>
-                    <div class="top-row px-4">
-                        <button class="btn btn-primary" @onclick="LoginUser">Login</button>
-                    </div>
-                </NotAuthorized>
-            </AuthorizeView>*@
-        </div>
-        <article class="content px-4">
+        <Search/>
+        <CartCounter/>
+        
+            <article class="content px-4">
             @Body
         </article>
-    </main> 
+       
+    </main>
 </div>
 
 @code
