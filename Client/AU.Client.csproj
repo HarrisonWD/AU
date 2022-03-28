@@ -65,9 +65,5 @@
     <None Include="wwwroot\Images\Sponsors\Secret Lab.png" />
     <None Include="wwwroot\Images\Sponsors\Twitch.png" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="PUTSTUFFINHERE\" />
-  </ItemGroup>
 
 </Project>
