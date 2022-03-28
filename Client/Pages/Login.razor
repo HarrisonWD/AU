@@ -7,26 +7,67 @@
 
 <PageTitle>Login</PageTitle>
 
-<EditForm Model="user" OnValidSubmit="HandleLogin">
-    <DataAnnotationsValidator/>
-    <div class="mb-3">
-        <label for="email">Email</label>
-        <InputText id="email" @bind-Value="user.Email" class="form-control"/>
-        <ValidationMessage For="@(() => user.Email)"/>
+<label for="email">Email</label>
+<InputText id="email" @bind-Value="user.Email" class="form-control"/>
+<ValidationMessage For="@(() => user.Email)"/>
+<section class="vh-100" style="background-color: #9A616D;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-10">
+                <div class="card" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img
+                                src="img/gaming.jpg"
+                                alt="login form"
+                                class="img-fluid w-100 h-100" style="border-radius: 1rem 0 0 1rem;"/>
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <form>
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        <img src="img/Logo with transparent background.png" style="width: 100px; height: 100px;">
+                                        <span class="h1 fw-bold mb-0">Achievment Unlocked</span>
+                                    </div>
+                                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+                                    <EditForm Model="user" OnValidSubmit="HandleLogin">
+                                        <DataAnnotationsValidator/>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="email">Email address</label>
+
+                                            <InputText type="email" id="email" @bind-Value="user.Email" class="form-control form-control-lg"/>
+
+                                            <ValidationMessage For="@(() => user.Email)"/>
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="password">Password</label>
+                                            <InputText id="password" @bind-Value="user.Password" class="form-control form-control-lg" type="password"/>
+                                            <ValidationMessage For="@(() => user.Password)"/>
+                                        </div>
+                                        <div class="pt-1 mb-4">
+                                            <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                                        </div>
+                                    </EditForm>
+                                    <a class="small text-muted" href="#!">Forgot password?</a>
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!" style="color: #393f81;">Register here</a></p>
+                                    <a href="#!" class="small text-muted">Terms of use.</a>
+                                    <a href="#!" class="small text-muted">Privacy policy</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="password">Password</label>
-        <InputText id="password" @bind-Value="user.Password" class="form-control" type="password"/>
-        <ValidationMessage For="@(() => user.Password)"/>
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</EditForm>
+</section>
+
 <div class="text-danger">
     <span>@errorMessage</span>
 </div>
 
 @code {
-    private UserLogin user = new UserLogin();
+    private readonly UserLogin user = new();
 
     private string errorMessage = string.Empty;
 
@@ -56,6 +97,6 @@
         {
             errorMessage = result.Message;
         }
-
     }
+
 }
