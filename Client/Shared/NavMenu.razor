@@ -1,64 +1,52 @@
 ﻿@inject ICategoryService CategorySevice
 
-<!-- Topbar Start -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-    <a href="index.html" class="navbar-brand d-block d-lg-none">
-    </a>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto mx-lg-auto py-0">
-            <a class="nav-item nav-link active">Follow us on:</a>
-            <a href="#" class="nav-item nav-link">
-                <img src="Images/Icons/Twitter Icon.png" style="width: 25px; height: 25px;">
-            </a>
-            <a href="#" class="nav-item nav-link">
-                <img src="" style="width: 35px; height: 35px;">
-            </a>
-            <a href="#" class="nav-item nav-link">
-                <img src="img/Instagram Icon.png" style="width: 35px; height: 35px;">
-            </a>
-            <a href="#" class="nav-item nav-link">
-                <img src="img/Youtube Icon.png" style="width: 35px; height: 35px;">
-            </a>
-            <a href="#" class="nav-item nav-link">
-                <img src="img/Twitch Icon.png" style="width: 25px; height: 25px;">
-            </a>
-            <UserButton/>
-            <a href="#" class="nav-item nav-link">Wishlist<img src="img/Wishlist Icon.png" style="width: 20px; height: 20px;"></a>
-            <a href="#" class="nav-item nav-link">Language<img src="img/UK Location Icon.png" style="width: 30px; height: 30px;"></a>
+
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+        <a href="index.html" class="navbar-brand d-block d-lg-none">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto mx-lg-auto py-0">
+                <a class="nav-item nav-link active">Follow us on:</a>
+                <a href="#" class="nav-item nav-link"><img src="Images/Icons/Twitter Icon.png" style="width:25px;height:25px;"></a>
+                <a href="#" class="nav-item nav-link"><img src="Images/Icons/Facebook Icon.png" style="width:35px;height:35px;"></a>
+                <a href="#" class="nav-item nav-link"><img src="Images/Icons/Instagram Icon.png" style="width:35px;height:35px;"></a>
+                <a href="#" class="nav-item nav-link"><img src="Images/Icons/Youtube Icon.png" style="width:35px;height:35px;"></a>
+                <a href="#" class="nav-item nav-link"><img src="Images/Icons/Twitch Icon.png" style="width:25px;height:25px;"></a>
+                <UserButton/>
+                <a href="#" class="nav-item nav-link">Wishlist<img src="Images/Icons/Wishlist Icon.png" style="width:20px;height:20px;"></a>
+                <a href="#" class="nav-item nav-link">Language<img src="Images/Icons/UK Location Icon.png" style="width:30px;height:30px;"></a>
+            </div>
         </div>
-    </div>
-</nav>
-<!-- Topbar End -->
+    </nav>
+    <!-- Topbar End -->
 
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
-    <a href="index.html" class="navbar-brand d-block d-lg-none">
-        <h1 class="m-0 text-uppercase text-white"><i class="fa fa-birthday-cake fs-1 text-primary me-3"></i>Achievment Unlocked</h1>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto mx-lg-auto py-0">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <a class="nav-item nav-link active">Home</a>
-            </NavLink>
-            <NavLink class="nav-link" href="shop">
-                <a href="shop.html" class="nav-item nav-link">Shop</a>
-            </NavLink>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm py-3 py-lg-0 px-3 px-lg-0">
+        <a href="index.html" class="navbar-brand d-block d-lg-none">
+            <h1 class="m-0 text-uppercase text-white"><i class="fa fa-birthday-cake fs-1 text-primary me-3"></i>Achievment Unlocked</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto mx-lg-auto py-0">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <a class="nav-item nav-link active">Home</a>
+                </NavLink>
+                <NavLink class="nav-link" href="shop">
+                    <a href="shop.html" class="nav-item nav-link">Shop</a>
+                </NavLink>
 
-            <a href="news.html" class="nav-item nav-link">News</a>
-            <a href="index.html" li class="hidden-xs">
-                <img src="img/Logo with transparent background.png" style="width: 150px; height: 150px;">
-            </a>
-            <a href="roster.html" class="nav-item nav-link">Roster</a>
-            <a href="about.html" class="nav-item nav-link">About</a>
-            <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                <a href="news.html" class="nav-item nav-link">News</a>
+                <a href="index.html" li class="hidden-xs"><img src="Images/Logos/Logo with transparent background.png" style="width: 150px; height: 150px;"></a>
+                <a href="roster.html" class="nav-item nav-link">Roster</a>
+                <a href="about.html" class="nav-item nav-link">About</a>
+                <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
-@*    @foreach (var category in CategorySevice.Categories)
+    @*    @foreach (var category in CategorySevice.Categories)
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="@category.Url">
